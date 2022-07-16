@@ -14,6 +14,11 @@
 		901512EC2883363300976B0F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 901512EA2883363300976B0F /* Main.storyboard */; };
 		901512EE2883363600976B0F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 901512ED2883363600976B0F /* Assets.xcassets */; };
 		901512F12883363600976B0F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 901512EF2883363600976B0F /* LaunchScreen.storyboard */; };
+		901512F82883555B00976B0F /* DiceEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901512F72883555B00976B0F /* DiceEntity.swift */; };
+		901512FA28835BF900976B0F /* DiceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901512F928835BF900976B0F /* DiceController.swift */; };
+		901512FC28835CA900976B0F /* DiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901512FB28835CA900976B0F /* DiceType.swift */; };
+		901512FE28835E3400976B0F /* RandomNumberApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901512FD28835E3400976B0F /* RandomNumberApi.swift */; };
+		901513002883621C00976B0F /* DiceApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901512FF2883621C00976B0F /* DiceApi.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +30,11 @@
 		901512EB2883363300976B0F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		901512ED2883363600976B0F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		901512F02883363600976B0F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		901512F72883555B00976B0F /* DiceEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiceEntity.swift; sourceTree = "<group>"; };
+		901512F928835BF900976B0F /* DiceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiceController.swift; sourceTree = "<group>"; };
+		901512FB28835CA900976B0F /* DiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiceType.swift; sourceTree = "<group>"; };
+		901512FD28835E3400976B0F /* RandomNumberApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomNumberApi.swift; sourceTree = "<group>"; };
+		901512FF2883621C00976B0F /* DiceApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiceApi.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,14 +68,43 @@
 			isa = PBXGroup;
 			children = (
 				901512E02883363300976B0F /* AppDelegate.swift */,
-				901512E22883363300976B0F /* GameScene.sks */,
-				901512E62883363300976B0F /* GameScene.swift */,
-				901512E82883363300976B0F /* GameViewController.swift */,
+				901513012883659500976B0F /* DiceSystem */,
+				90151303288365DF00976B0F /* Utils */,
+				90151302288365BE00976B0F /* Scenes */,
 				901512EA2883363300976B0F /* Main.storyboard */,
 				901512ED2883363600976B0F /* Assets.xcassets */,
 				901512EF2883363600976B0F /* LaunchScreen.storyboard */,
 			);
 			path = RollOfTheDice;
+			sourceTree = "<group>";
+		};
+		901513012883659500976B0F /* DiceSystem */ = {
+			isa = PBXGroup;
+			children = (
+				901512FB28835CA900976B0F /* DiceType.swift */,
+				901512F72883555B00976B0F /* DiceEntity.swift */,
+				901512FF2883621C00976B0F /* DiceApi.swift */,
+				901512F928835BF900976B0F /* DiceController.swift */,
+			);
+			path = DiceSystem;
+			sourceTree = "<group>";
+		};
+		90151302288365BE00976B0F /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				901512E22883363300976B0F /* GameScene.sks */,
+				901512E62883363300976B0F /* GameScene.swift */,
+				901512E82883363300976B0F /* GameViewController.swift */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		90151303288365DF00976B0F /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				901512FD28835E3400976B0F /* RandomNumberApi.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,9 +179,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				901512FE28835E3400976B0F /* RandomNumberApi.swift in Sources */,
+				901512FC28835CA900976B0F /* DiceType.swift in Sources */,
 				901512E72883363300976B0F /* GameScene.swift in Sources */,
+				901512F82883555B00976B0F /* DiceEntity.swift in Sources */,
 				901512E92883363300976B0F /* GameViewController.swift in Sources */,
+				901512FA28835BF900976B0F /* DiceController.swift in Sources */,
 				901512E12883363300976B0F /* AppDelegate.swift in Sources */,
+				901513002883621C00976B0F /* DiceApi.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

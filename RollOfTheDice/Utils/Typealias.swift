@@ -8,3 +8,4 @@
 import Foundation
 
 typealias TileBoard = [[TileEntity]]
+typealias TileTypeBoard = [[TileType]]

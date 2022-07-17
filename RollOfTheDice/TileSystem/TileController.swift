@@ -8,22 +8,7 @@
 import Foundation
 
 class TileController {
-    
-    // MARK: - Initializer
-    
-    init(board: TileBoard) {
-        self.board = board
-    }
-    
-    // MARK: - Internal Properties
-    
-    private var board: TileBoard
-//    private var playTile: TileEntity
-    
-    // MARK: - Exposed Properties
-    
-    
-    
+    // Not sure how im going to use this -
 }
 
 extension TileController {
@@ -36,6 +21,19 @@ extension TileController {
             for _ in 0..<width {
                 let randomType = TileType.allCases.randomElement()!
                 tileRow.append(TileEntity(walledSides: [], type: randomType))
+            }
+            tileBoard.append(tileRow)
+        }
+        return tileBoard
+    }
+    
+    static func createTileBoard(fromTypeBoard typeBoard: TileTypeBoard) -> TileBoard {
+        var tileBoard: TileBoard = []
+        for typeRow in typeBoard {
+            var tileRow: [TileEntity] = []
+            for type in typeRow {
+                let newTile = TileEntity(type: type)
+                tileRow.append(newTile)
             }
             tileBoard.append(tileRow)
         }

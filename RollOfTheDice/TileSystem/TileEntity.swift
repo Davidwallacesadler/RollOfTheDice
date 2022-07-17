@@ -16,7 +16,7 @@ class TileEntity {
         self.tileType = TileType.defaultTile
     }
     
-    init(walledSides: [TileSide], type: TileType) {
+    init(walledSides: [TileSide] = [], type: TileType) {
         self.walledSides = walledSides
         self.tileType = type
     }

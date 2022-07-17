@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Point {
+struct Point: Hashable {
     
     init(_ x: Int, _ y: Int) {
         self.x = x
@@ -16,4 +16,6 @@ struct Point {
     
     var x: Int
     var y: Int
+    
+    static let origin: Point = Point(0,0)
 }

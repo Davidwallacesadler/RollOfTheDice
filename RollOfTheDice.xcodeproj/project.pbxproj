@@ -30,6 +30,7 @@
 		901513192883BD9700976B0F /* CardinalDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901513182883BD9700976B0F /* CardinalDirection.swift */; };
 		9015131E2883C45000976B0F /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9015131D2883C45000976B0F /* Point.swift */; };
 		901513202883F32100976B0F /* LevelControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9015131F2883F32100976B0F /* LevelControllerDelegate.swift */; };
+		901513222884A4A200976B0F /* SKScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901513212884A4A200976B0F /* SKScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +58,7 @@
 		901513182883BD9700976B0F /* CardinalDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardinalDirection.swift; sourceTree = "<group>"; };
 		9015131D2883C45000976B0F /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		9015131F2883F32100976B0F /* LevelControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelControllerDelegate.swift; sourceTree = "<group>"; };
+		901513212884A4A200976B0F /* SKScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				901513182883BD9700976B0F /* CardinalDirection.swift */,
+				901513212884A4A200976B0F /* SKScene.swift */,
 				901512FD28835E3400976B0F /* RandomNumberApi.swift */,
 				9015131D2883C45000976B0F /* Point.swift */,
 				9015130D28837B8E00976B0F /* Typealias.swift */,
@@ -232,6 +235,7 @@
 				9015130C28837B5500976B0F /* TileController.swift in Sources */,
 				901512FC28835CA900976B0F /* DiceType.swift in Sources */,
 				90151306288370CE00976B0F /* TileType.swift in Sources */,
+				901513222884A4A200976B0F /* SKScene.swift in Sources */,
 				901513202883F32100976B0F /* LevelControllerDelegate.swift in Sources */,
 				901512E72883363300976B0F /* GameScene.swift in Sources */,
 				90151310288395C800976B0F /* ObjectDepth.swift in Sources */,

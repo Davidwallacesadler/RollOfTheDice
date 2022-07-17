@@ -16,6 +16,22 @@ class LevelController {
         self.gameBoard = currentLevel.gameBoard
         self.playerGridPosition = playerGridPosition
         self.delegate = delegate
+        
+        var gatePositions = [Point]()
+        var x = 0
+        var y = 0
+        while y < currentLevel.gameBoard.count {
+            while x < currentLevel.gameBoard[y].count {
+                let tile = currentLevel.gameBoard[y][x]
+                if tile.tileType.isAGate {
+                    gatePositions.append(Point(x,y))
+                }
+                x += 1
+            }
+            y += 1
+            x = 0
+        }
+        self.gatePositions = gatePositions
     }
     
     // MARK: - Internal Properties
@@ -32,6 +48,7 @@ class LevelController {
     public var currentLevel: Level
     public var playerGridPosition: Point
     public var gameBoard: TileBoard
+    public var gatePositions: [Point]
     
     public var playerScreenPosition: CGPoint {
         return CGPoint(x: playerGridPosition.x * tileSize, y: -playerGridPosition.y * tileSize)
@@ -45,6 +62,21 @@ class LevelController {
 // MARK: - Intentions
 
 extension LevelController {
+    
+    public func evaluateGateConditions() {
+        let currentDiceValue = diceController.diceValue
+        for point in gatePositions {
+            switch gameBoard[point.y][point.x].tileType {
+            case .gate(isLocked: _, targetValue: let targetValue):
+                let newState = currentDiceValue != targetValue
+                let newGateType: TileType = .gate(isLocked: newState, targetValue: targetValue)
+                gameBoard[point.y][point.x].tileType = newGateType
+            default:
+                break
+            }
+        }
+        delegate.didUpdateGateConditions()
+    }
     
     public func goToNextLevel() {
         let nextLevelRaw = currentLevel.rawValue + 1
@@ -77,19 +109,40 @@ extension LevelController {
         case .standard:
             break
         case .incrementer:
+            let previousNumber = diceController.diceValue
             diceController.incrementCurrentNumber()
+            if diceController.diceValue == previousNumber {
+                // No change - treat like a standard move
+                delegate.playerDiceDidMove(toTileOfType: .standard)
+                return
+            }
+            evaluateGateConditions()
         case .decrementer:
+            let previousNumber = diceController.diceValue
             diceController.decrementCurrentNumber()
+            if diceController.diceValue == previousNumber {
+                // No change - treat like a standard move
+                delegate.playerDiceDidMove(toTileOfType: .standard)
+                return
+            }
+            evaluateGateConditions()
         case .reRoller:
-            diceController.rollPlayerDiceType()
+            diceController.rollPlayerDiceNumber()
+            evaluateGateConditions()
         case .barrier:
             // Move back to last point?
             playerGridPosition = previousPoint
             break
         case .levelFinish:
             goToNextLevel()
+        case .gate(isLocked: let isLocked, targetValue: _):
+            if isLocked {
+                // Cant move to tile
+                playerGridPosition = previousPoint
+            }
         }
         delegate.playerDiceDidMove(toTileOfType: newTile.tileType)
+        
     }
 }
 

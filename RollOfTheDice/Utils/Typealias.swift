@@ -9,3 +9,4 @@ import Foundation
 
 typealias TileBoard = [[TileEntity]]
 typealias TileTypeBoard = [[TileType]]
+typealias GateCondition = (Int) -> Bool

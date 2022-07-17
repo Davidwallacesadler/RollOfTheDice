@@ -9,4 +9,6 @@ import Foundation
 
 protocol LevelControllerDelegate {
     func playerDiceDidMove(toTileOfType tileType: TileType)
+    func playerDiceDidUpdateNumber()
+    func didUpdateGateConditions()
 }

@@ -12,9 +12,14 @@ class TileController {
 }
 
 extension TileController {
+    
+//    static func getLock
+    
+    
     static func createRandomTileBoard(ofWidth width: Int, andHeight height: Int) -> TileBoard {
         // width == amount of tiles in each array
         // height == amount of tile arrays in the parent array
+        
         var tileBoard: TileBoard = []
         while tileBoard.count < height {
             var tileRow: [TileEntity] = []

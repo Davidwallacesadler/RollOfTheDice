@@ -10,9 +10,9 @@ import Foundation
 let levelOneBoard: TileBoard = {
     let typeBoard: TileTypeBoard = [
         [.standard, .standard, .standard, .standard, .standard],
-        [.standard, .incrementer, .standard, .decrementer, .standard],
+        [.standard, .incrementer, .reRoller, .decrementer, .standard],
         [.standard, .standard, .standard, .standard, .standard],
-        [.barrier, .barrier, .barrier, .barrier, .barrier],
+        [.barrier, .barrier, .gate(isLocked: true, targetValue: 6), .barrier, .barrier],
         [.standard, .standard, .standard, .standard, .standard],
         [.standard, .standard, .levelFinish, .standard, .standard],
     ]

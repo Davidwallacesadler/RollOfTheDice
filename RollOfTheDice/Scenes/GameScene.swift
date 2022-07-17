@@ -60,6 +60,18 @@ class GameScene: SKScene {
 // MARK: - Level Delegate Implementation
 
 extension GameScene: LevelControllerDelegate {
+    func playerDiceDidUpdateNumber() {
+        // ??
+    }
+    
+    func didUpdateGateConditions() {
+        for gatePoint in levelController.gatePositions {
+            let nameFromPoint = "\(gatePoint.x),\(gatePoint.y)"
+            guard let tileFromName = findSprite(withName: nameFromPoint) else { return }
+            tileFromName.texture = SKTexture(imageNamed: levelController.gameBoard[gatePoint.y][gatePoint.x].tileType.assetName)
+        }
+    }
+    
     func playerDiceDidMove(toTileOfType tileType: TileType) {
         let move = SKAction.move(to: self.levelController.playerScreenPosition, duration: 0.25)
         move.timingMode = .easeInEaseOut
@@ -68,7 +80,7 @@ extension GameScene: LevelControllerDelegate {
         case .standard:
             playerNode.run(move)
         case .incrementer:
-            let shrink = SKAction.scaleX(to: 0.2, duration: 0.25)
+            let shrink = SKAction.scaleX(to: 0.1, duration: 0.25)
             let update = SKAction.run { [unowned self] in self.playerNode.texture = SKTexture(imageNamed: self.levelController.diceController.diceAssetName) }
             let expand = SKAction.scaleX(to: 1, duration: 0.25)
             let fadeOut = SKAction.fadeOut(withDuration: 0.25)
@@ -79,7 +91,7 @@ extension GameScene: LevelControllerDelegate {
             comeBack.timingMode = .easeOut
             playerNode.run(SKAction.sequence([move, goOut, update, comeBack]))
         case .decrementer:
-            let shrink = SKAction.scaleY(to: 0.2, duration: 0.25)
+            let shrink = SKAction.scaleY(to: 0.1, duration: 0.25)
             let update = SKAction.run { [unowned self] in self.playerNode.texture = SKTexture(imageNamed: self.levelController.diceController.diceAssetName) }
             let expand = SKAction.scaleY(to: 1, duration: 0.25)
             let fadeOut = SKAction.fadeOut(withDuration: 0.25)
@@ -90,11 +102,35 @@ extension GameScene: LevelControllerDelegate {
             comeBack.timingMode = .easeOut
             playerNode.run(SKAction.sequence([move, goOut, update, comeBack]))
         case .reRoller:
-            print("roll")
+            let rotateOut = SKAction.rotate(byAngle: 3, duration: 0.25)
+            let rotateIn = SKAction.rotate(byAngle: -3, duration: 0.25)
+            let shrink = SKAction.scaleY(to: 0.1, duration: 0.25)
+            let update = SKAction.run { [unowned self] in self.playerNode.texture = SKTexture(imageNamed: self.levelController.diceController.diceAssetName) }
+            let expand = SKAction.scaleY(to: 1, duration: 0.25)
+            let fadeOut = SKAction.fadeOut(withDuration: 0.25)
+            let fadeIn = SKAction.fadeIn(withDuration: 0.25)
+            let goOut = SKAction.group([shrink, fadeOut, rotateOut])
+            goOut.timingMode = .easeIn
+            let comeBack = SKAction.group([expand, fadeIn, rotateIn])
+            comeBack.timingMode = .easeOut
+            playerNode.run(SKAction.sequence([move, goOut, update, comeBack]))
         case .barrier:
-            print("stuck")
+            let moveLeft = SKAction.move(by: CGVector(dx: 10, dy: 0), duration: 0.1)
+            let moveRight = SKAction.move(by: CGVector(dx: -20, dy: 0), duration: 0.1)
+            let reCenter = SKAction.move(by: CGVector(dx: 10, dy: 0), duration: 0.1)
+            playerNode.run(SKAction.sequence([moveLeft, moveRight, reCenter]))
         case .levelFinish:
             print("party")
+            playerNode.run(move)
+        case .gate(isLocked: let isLocked, targetValue: _):
+            if isLocked {
+                let moveLeft = SKAction.move(by: CGVector(dx: 10, dy: 0), duration: 0.1)
+                let moveRight = SKAction.move(by: CGVector(dx: -20, dy: 0), duration: 0.1)
+                let reCenter = SKAction.move(by: CGVector(dx: 10, dy: 0), duration: 0.1)
+                playerNode.run(SKAction.sequence([moveLeft, moveRight, reCenter]))
+            } else {
+                playerNode.run(move)
+            }
         }
     }
     
@@ -161,7 +197,8 @@ extension GameScene {
         var yPosition = 0
         for tileRow in levelController.gameBoard {
             for tile in tileRow {
-                let tileNode = SKSpriteNode(imageNamed: tile.tileType.assetName)
+                let tileNode = SKSpriteNode()
+                tileNode.texture = SKTexture(imageNamed: tile.tileType.assetName)
                 tileNode.size = CGSize(width: tileSize, height: tileSize)
                 tileNode.position = CGPoint(x: tileXOrigin, y: tileYOrigin)
                 tileNode.zPosition = ObjectDepth.background.zPosition

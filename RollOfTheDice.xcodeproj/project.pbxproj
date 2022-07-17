@@ -19,6 +19,12 @@
 		901512FC28835CA900976B0F /* DiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901512FB28835CA900976B0F /* DiceType.swift */; };
 		901512FE28835E3400976B0F /* RandomNumberApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901512FD28835E3400976B0F /* RandomNumberApi.swift */; };
 		901513002883621C00976B0F /* DiceApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901512FF2883621C00976B0F /* DiceApi.swift */; };
+		90151306288370CE00976B0F /* TileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90151305288370CE00976B0F /* TileType.swift */; };
+		90151308288379A400976B0F /* TileEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90151307288379A400976B0F /* TileEntity.swift */; };
+		9015130A288379E800976B0F /* TileSide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90151309288379E800976B0F /* TileSide.swift */; };
+		9015130C28837B5500976B0F /* TileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9015130B28837B5500976B0F /* TileController.swift */; };
+		9015130E28837B8E00976B0F /* Typealias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9015130D28837B8E00976B0F /* Typealias.swift */; };
+		90151310288395C800976B0F /* ObjectDepth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9015130F288395C800976B0F /* ObjectDepth.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +41,12 @@
 		901512FB28835CA900976B0F /* DiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiceType.swift; sourceTree = "<group>"; };
 		901512FD28835E3400976B0F /* RandomNumberApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomNumberApi.swift; sourceTree = "<group>"; };
 		901512FF2883621C00976B0F /* DiceApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiceApi.swift; sourceTree = "<group>"; };
+		90151305288370CE00976B0F /* TileType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileType.swift; sourceTree = "<group>"; };
+		90151307288379A400976B0F /* TileEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileEntity.swift; sourceTree = "<group>"; };
+		90151309288379E800976B0F /* TileSide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileSide.swift; sourceTree = "<group>"; };
+		9015130B28837B5500976B0F /* TileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileController.swift; sourceTree = "<group>"; };
+		9015130D28837B8E00976B0F /* Typealias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typealias.swift; sourceTree = "<group>"; };
+		9015130F288395C800976B0F /* ObjectDepth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDepth.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				901512E02883363300976B0F /* AppDelegate.swift */,
+				90151304288370BB00976B0F /* TileSystem */,
 				901513012883659500976B0F /* DiceSystem */,
 				90151303288365DF00976B0F /* Utils */,
 				90151302288365BE00976B0F /* Scenes */,
@@ -103,8 +116,21 @@
 			isa = PBXGroup;
 			children = (
 				901512FD28835E3400976B0F /* RandomNumberApi.swift */,
+				9015130D28837B8E00976B0F /* Typealias.swift */,
+				9015130F288395C800976B0F /* ObjectDepth.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		90151304288370BB00976B0F /* TileSystem */ = {
+			isa = PBXGroup;
+			children = (
+				90151305288370CE00976B0F /* TileType.swift */,
+				90151309288379E800976B0F /* TileSide.swift */,
+				90151307288379A400976B0F /* TileEntity.swift */,
+				9015130B28837B5500976B0F /* TileController.swift */,
+			);
+			path = TileSystem;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -180,12 +206,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				901512FE28835E3400976B0F /* RandomNumberApi.swift in Sources */,
+				9015130C28837B5500976B0F /* TileController.swift in Sources */,
 				901512FC28835CA900976B0F /* DiceType.swift in Sources */,
+				90151306288370CE00976B0F /* TileType.swift in Sources */,
 				901512E72883363300976B0F /* GameScene.swift in Sources */,
+				90151310288395C800976B0F /* ObjectDepth.swift in Sources */,
+				9015130A288379E800976B0F /* TileSide.swift in Sources */,
 				901512F82883555B00976B0F /* DiceEntity.swift in Sources */,
 				901512E92883363300976B0F /* GameViewController.swift in Sources */,
 				901512FA28835BF900976B0F /* DiceController.swift in Sources */,
 				901512E12883363300976B0F /* AppDelegate.swift in Sources */,
+				90151308288379A400976B0F /* TileEntity.swift in Sources */,
+				9015130E28837B8E00976B0F /* Typealias.swift in Sources */,
 				901513002883621C00976B0F /* DiceApi.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

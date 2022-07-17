@@ -24,6 +24,6 @@ class DiceEntity {
     // MARK: - Properties
     
     public var currentNumber: Int
-    public var currentType: DiceType = .d4
+    public var currentType: DiceType
     
 }

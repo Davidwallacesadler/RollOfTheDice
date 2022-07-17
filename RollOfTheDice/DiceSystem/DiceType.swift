@@ -22,5 +22,9 @@ enum DiceType: Int, CaseIterable {
         return 1...self.rawValue
     }
     
-    static let defaultDice: DiceType = .d4
+    var assetName: String {
+        return "dice_d\(self.rawValue)"
+    }
+    
+    static let defaultDice: DiceType = .d6
 }

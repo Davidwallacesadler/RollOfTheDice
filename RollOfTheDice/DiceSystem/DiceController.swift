@@ -32,6 +32,12 @@ class DiceController: RandomNumberApi {
             return playerDice.currentType
         }
     }
+    
+    public var diceAssetName: String {
+        get {
+            return diceType.assetName + "-\(diceValue)"
+        }
+    }
 }
 
 // MARK: - Api Implementation

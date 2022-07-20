@@ -11,4 +11,5 @@ protocol LevelControllerDelegate {
     func playerDiceDidMove(toTileOfType tileType: TileType)
     func playerDiceDidUpdateNumber()
     func didUpdateGateConditions()
+    func didTransitionLevel()
 }

@@ -19,6 +19,7 @@ class GameScene: SKScene {
     private var playerNode: SKSpriteNode!
     private var cameraNode = SKCameraNode()
     private var tileNodes: [SKSpriteNode] = []
+    private var currentLevelLabel: SKLabelNode!
     
     // MARK: - View LifeCycle
     
@@ -45,21 +46,34 @@ class GameScene: SKScene {
     
     private func touchDown(atPoint pos: CGPoint) {
         let nodes = nodes(at: pos)
-        guard let firstTapped = nodes.first,
-              let firstName = firstTapped.name else { return }
-        let coordinates = firstName.split(separator: ",").compactMap({ Int(String($0)) })
+        guard let tileTappedName = nodes.first(where: { $0.name?.contains(",") ?? false })?.name else { return }
+        let coordinates = tileTappedName.split(separator: ",").compactMap({ Int(String($0)) })
         guard coordinates.count > 1 else { return }
         levelController.movePlayer(toGridCoordinate: Point(coordinates[0], coordinates[1]))
-        // Update playerNode
-//        let moveAndRetextureAction = SKAction.run {
-//            SKAction.move(to: self.levelController.playerScreenPosition, duration: 1.0)
-//        }
     }
 }
 
 // MARK: - Level Delegate Implementation
 
 extension GameScene: LevelControllerDelegate {
+    func didTransitionLevel() {
+        // Remove player and tiles from level
+        playerNode.removeFromParent()
+        for tile in tileNodes {
+            tile.removeFromParent()
+        }
+        tileNodes = []
+        // Re-setup player and tiles
+        setupPlayerNode()
+        setupTileNodes()
+        currentLevelLabel.text = levelController.currentLevel.description
+        // Re-add player and tiles
+        addChild(playerNode)
+        for tileNode in tileNodes {
+            addChild(tileNode)
+        }
+    }
+    
     func playerDiceDidUpdateNumber() {
         // ??
     }
@@ -69,6 +83,15 @@ extension GameScene: LevelControllerDelegate {
             let nameFromPoint = "\(gatePoint.x),\(gatePoint.y)"
             guard let tileFromName = findSprite(withName: nameFromPoint) else { return }
             tileFromName.texture = SKTexture(imageNamed: levelController.gameBoard[gatePoint.y][gatePoint.x].tileType.assetName)
+//            guard let firstLabel = tileFromName.children.first as? SKLabelNode else { return }
+//            switch levelController.gameBoard[gatePoint.y][gatePoint.x].tileType {
+//
+//            case .gate(isLocked: let isLocked, targetValue: _):
+//                firstLabel.fontColor = isLocked ? .red : .white
+//            default:
+//                return
+//            }
+            
         }
     }
     
@@ -120,8 +143,8 @@ extension GameScene: LevelControllerDelegate {
             let reCenter = SKAction.move(by: CGVector(dx: 10, dy: 0), duration: 0.1)
             playerNode.run(SKAction.sequence([moveLeft, moveRight, reCenter]))
         case .levelFinish:
-            print("party")
-            playerNode.run(move)
+            let goToNext = SKAction.run { [unowned self] in self.levelController.goToNextLevel() }
+            playerNode.run(SKAction.sequence([move, goToNext]))
         case .gate(isLocked: let isLocked, targetValue: _):
             if isLocked {
                 let moveLeft = SKAction.move(by: CGVector(dx: 10, dy: 0), duration: 0.1)
@@ -133,26 +156,6 @@ extension GameScene: LevelControllerDelegate {
             }
         }
     }
-    
-    func playerDiceDidMove() {
-        
-    }
-    
-    func playerDiceDidIncrement() {
-        
-    }
-    
-    func playerDiceDidDecrement() {
-        
-    }
-    
-    func playerDiceDidReRoll() {
-        // Update dice
-    }
-    
-    func playerDiceDidReachFinish() {
-        // dunno - do a funny lil dance or something ?
-    }
 }
 
 // MARK: - Setup Methods
@@ -161,6 +164,7 @@ extension GameScene {
     
     func setupNodes() {
         setupCameraNode()
+        setupHud()
         setupPlayerNode()
         setupTileNodes()
     }
@@ -188,22 +192,40 @@ extension GameScene {
         cameraNode.position = CGPoint.zero
     }
     
+    func setupHud() {
+        currentLevelLabel = SKLabelNode(fontNamed: "Arial")
+        currentLevelLabel.text = levelController.currentLevel.description
+        currentLevelLabel.fontColor = .white
+        currentLevelLabel.zPosition = ObjectDepth.hud.zPosition
+        cameraNode.addChild(currentLevelLabel)
+        currentLevelLabel.position = CGPoint(x: 0, y: size.height * 0.5 - 50.0)
+    }
+    
     func setupTileNodes() {
         let tileSize = CGFloat(Double(levelController.tileSize))
         var tileXOrigin: CGFloat = 0
         var tileYOrigin: CGFloat = 0
         
+        var tileSprites: [SKSpriteNode] = []
         var xPosition = 0
         var yPosition = 0
         for tileRow in levelController.gameBoard {
             for tile in tileRow {
                 let tileNode = SKSpriteNode()
                 tileNode.texture = SKTexture(imageNamed: tile.tileType.assetName)
+                switch tile.tileType {
+                case .gate(isLocked: let islocked, targetValue: let targetValue):
+                    let valueLabel = SKLabelNode(text: "\(targetValue)")
+                    valueLabel.verticalAlignmentMode = .center
+                    tileNode.addChild(valueLabel)
+                default:
+                    break
+                }
                 tileNode.size = CGSize(width: tileSize, height: tileSize)
                 tileNode.position = CGPoint(x: tileXOrigin, y: tileYOrigin)
                 tileNode.zPosition = ObjectDepth.background.zPosition
                 tileNode.name = "\(xPosition),\(yPosition)"
-                tileNodes.append(tileNode)
+                tileSprites.append(tileNode)
                 xPosition += 1
                 tileXOrigin += (tileSize + 1)
             }
@@ -214,5 +236,6 @@ extension GameScene {
             xPosition = 0
             yPosition += 1
         }
+        tileNodes = tileSprites
     }
 }

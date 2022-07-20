@@ -26,7 +26,7 @@
 		9015130E28837B8E00976B0F /* Typealias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9015130D28837B8E00976B0F /* Typealias.swift */; };
 		90151310288395C800976B0F /* ObjectDepth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9015130F288395C800976B0F /* ObjectDepth.swift */; };
 		901513152883B55F00976B0F /* LevelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901513142883B55F00976B0F /* LevelController.swift */; };
-		901513172883B80400976B0F /* LevelBoards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901513162883B80400976B0F /* LevelBoards.swift */; };
+		901513172883B80400976B0F /* TileBoards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901513162883B80400976B0F /* TileBoards.swift */; };
 		901513192883BD9700976B0F /* CardinalDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901513182883BD9700976B0F /* CardinalDirection.swift */; };
 		9015131E2883C45000976B0F /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9015131D2883C45000976B0F /* Point.swift */; };
 		901513202883F32100976B0F /* LevelControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9015131F2883F32100976B0F /* LevelControllerDelegate.swift */; };
@@ -54,7 +54,7 @@
 		9015130D28837B8E00976B0F /* Typealias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typealias.swift; sourceTree = "<group>"; };
 		9015130F288395C800976B0F /* ObjectDepth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDepth.swift; sourceTree = "<group>"; };
 		901513142883B55F00976B0F /* LevelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelController.swift; sourceTree = "<group>"; };
-		901513162883B80400976B0F /* LevelBoards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelBoards.swift; sourceTree = "<group>"; };
+		901513162883B80400976B0F /* TileBoards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileBoards.swift; sourceTree = "<group>"; };
 		901513182883BD9700976B0F /* CardinalDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardinalDirection.swift; sourceTree = "<group>"; };
 		9015131D2883C45000976B0F /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		9015131F2883F32100976B0F /* LevelControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelControllerDelegate.swift; sourceTree = "<group>"; };
@@ -154,7 +154,7 @@
 			children = (
 				901513142883B55F00976B0F /* LevelController.swift */,
 				9015131F2883F32100976B0F /* LevelControllerDelegate.swift */,
-				901513162883B80400976B0F /* LevelBoards.swift */,
+				901513162883B80400976B0F /* TileBoards.swift */,
 			);
 			path = LevelSystem;
 			sourceTree = "<group>";
@@ -247,7 +247,7 @@
 				901512FA28835BF900976B0F /* DiceController.swift in Sources */,
 				901512E12883363300976B0F /* AppDelegate.swift in Sources */,
 				901513152883B55F00976B0F /* LevelController.swift in Sources */,
-				901513172883B80400976B0F /* LevelBoards.swift in Sources */,
+				901513172883B80400976B0F /* TileBoards.swift in Sources */,
 				90151308288379A400976B0F /* TileEntity.swift in Sources */,
 				9015130E28837B8E00976B0F /* Typealias.swift in Sources */,
 				901513002883621C00976B0F /* DiceApi.swift in Sources */,

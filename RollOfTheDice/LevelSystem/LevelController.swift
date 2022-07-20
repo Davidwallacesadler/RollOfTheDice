@@ -11,12 +11,29 @@ class LevelController {
     
     // MARK: - Initializer
     
-    init(level: Level = .one, playerGridPosition: Point = Point(0,0), delegate: LevelControllerDelegate) {
+    init(level: Level = .one, delegate: LevelControllerDelegate) {
         self.currentLevel = level
         self.gameBoard = currentLevel.gameBoard
-        self.playerGridPosition = playerGridPosition
+        self.playerGridPosition = level.startPosition
         self.delegate = delegate
         
+        setupGatePositions()
+    }
+    
+    // MARK: - Internal Properties
+
+    // MARK: - Internal Methods
+    
+    private func setup(withNewLevel level: Level) {
+        self.currentLevel = level
+        self.gameBoard = currentLevel.gameBoard
+        self.playerGridPosition = level.startPosition
+        setupGatePositions()
+        evaluateGateConditions()
+        delegate.didTransitionLevel()
+    }
+    
+    private func setupGatePositions() {
         var gatePositions = [Point]()
         var x = 0
         var y = 0
@@ -34,10 +51,6 @@ class LevelController {
         self.gatePositions = gatePositions
     }
     
-    // MARK: - Internal Properties
-
-    
-    
     // MARK: - Exposed Properties
     
     public let tileSize: Int = 200
@@ -48,7 +61,7 @@ class LevelController {
     public var currentLevel: Level
     public var playerGridPosition: Point
     public var gameBoard: TileBoard
-    public var gatePositions: [Point]
+    public var gatePositions: [Point] = []
     
     public var playerScreenPosition: CGPoint {
         return CGPoint(x: playerGridPosition.x * tileSize, y: -playerGridPosition.y * tileSize)
@@ -84,21 +97,28 @@ extension LevelController {
             print("LEVEL CONTROLLER ERROR - next level \(nextLevelRaw) not found")
             return
         }
-        currentLevel = nextLevel
+        setup(withNewLevel: nextLevel)
     }
     
     public func goToPreviousLevel() {
         let previousLevelRaw = currentLevel.rawValue - 1
-        guard let nextLevel = Level(rawValue: previousLevelRaw) else {
+        guard let previousLevel = Level(rawValue: previousLevelRaw) else {
             print("LEVEL CONTROLLER ERROR - previous level \(previousLevelRaw) not found")
             return
         }
-        currentLevel = nextLevel
+        setup(withNewLevel: previousLevel)
     }
     
     public func movePlayer(toGridCoordinate newPoint: Point) {
-        // Need to validate we can go to where was tapped  - do pathfinding
+        // Validating that the point is a distance of 1
         let previousPoint = playerGridPosition
+        let dx = (previousPoint.x - newPoint.x).magnitude
+        let dy = (previousPoint.y - newPoint.y).magnitude
+        guard dx < 2 && dy < 2 else {
+            print("Player tapped on a tile out of range to move")
+            return
+            
+        }
         playerGridPosition = newPoint
         handleMove(fromPreviousPosition: previousPoint)
     }
@@ -134,7 +154,8 @@ extension LevelController {
             playerGridPosition = previousPoint
             break
         case .levelFinish:
-            goToNextLevel()
+//            goToNextLevel()
+            break
         case .gate(isLocked: let isLocked, targetValue: _):
             if isLocked {
                 // Cant move to tile
@@ -149,14 +170,33 @@ extension LevelController {
 // MARK: - Internal Types
 
 extension LevelController {
-    enum Level: Int, CaseIterable {
-        case one = 1
+    enum Level: Int, CaseIterable, CustomStringConvertible {
+        case one = 1,
+             two,
+             three
         
         var gameBoard: [[TileEntity]] {
             switch self {
             case .one:
                 return levelOneBoard
+            case .two:
+                return levelTwoBoard
+            case .three:
+                return levelThreeBoard
             }
+        }
+        var startPosition: Point {
+            switch self {
+            case .one:
+                return Point(2,0)
+            case .two:
+                return .origin
+            case .three:
+                return Point(0,2)
+            }
+        }
+        var description: String {
+            return "Level \(self.rawValue)"
         }
     }
 }

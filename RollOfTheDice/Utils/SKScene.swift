@@ -14,4 +14,9 @@ extension SKScene {
     public func findSprite(withName name: String) -> SKSpriteNode? {
         return children.first(where: { $0.name == name }) as? SKSpriteNode
     }
+    
+    public func removeNode(withName name: String) {
+        guard let nodeWithName = children.first(where: { $0.name == name }) else { return }
+        nodeWithName.removeFromParent()
+    }
 }

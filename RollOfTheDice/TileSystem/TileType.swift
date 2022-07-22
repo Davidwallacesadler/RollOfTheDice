@@ -14,7 +14,8 @@ enum TileType: CustomStringConvertible, Equatable {
          reRoller,
          barrier,
          levelFinish,
-         gate(isLocked: Bool, targetValue: Int)
+         gate(isLocked: Bool, targetValue: Int),
+         mover(direction: CardinalDirection)
     
     var description: String {
         switch self {
@@ -34,6 +35,9 @@ enum TileType: CustomStringConvertible, Equatable {
             let baseDescription = "gate"
             let postFix = isLocked ? "-locked" : "-unlocked"
             return baseDescription + postFix
+        case .mover(direction: let direction):
+//            return direction.description + " mover"
+            return "mover"
         }
     }
     
@@ -47,6 +51,28 @@ enum TileType: CustomStringConvertible, Equatable {
             return true
         default:
             return false
+        }
+    }
+    
+    var isAMover: Bool {
+        switch self {
+        case .mover:
+            return true
+        default:
+            return false
+        }
+    }
+    
+    var isAnimatable: Bool {
+        return isAMover
+    }
+    
+    var numberOfFrames: Int {
+        switch self {
+        case .mover:
+            return 4
+        default:
+            return 0
         }
     }
     

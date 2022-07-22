@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		901512E12883363300976B0F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901512E02883363300976B0F /* AppDelegate.swift */; };
-		901512E32883363300976B0F /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 901512E22883363300976B0F /* GameScene.sks */; };
 		901512E72883363300976B0F /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901512E62883363300976B0F /* GameScene.swift */; };
 		901512E92883363300976B0F /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901512E82883363300976B0F /* GameViewController.swift */; };
 		901512EC2883363300976B0F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 901512EA2883363300976B0F /* Main.storyboard */; };
@@ -31,12 +30,12 @@
 		9015131E2883C45000976B0F /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9015131D2883C45000976B0F /* Point.swift */; };
 		901513202883F32100976B0F /* LevelControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9015131F2883F32100976B0F /* LevelControllerDelegate.swift */; };
 		901513222884A4A200976B0F /* SKScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901513212884A4A200976B0F /* SKScene.swift */; };
+		90151324288A38E000976B0F /* MoverTileImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 90151323288A38DF00976B0F /* MoverTileImages.atlas */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		901512DD2883363300976B0F /* RollOfTheDice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RollOfTheDice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		901512E02883363300976B0F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		901512E22883363300976B0F /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		901512E62883363300976B0F /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		901512E82883363300976B0F /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		901512EB2883363300976B0F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -59,6 +58,7 @@
 		9015131D2883C45000976B0F /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		9015131F2883F32100976B0F /* LevelControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelControllerDelegate.swift; sourceTree = "<group>"; };
 		901513212884A4A200976B0F /* SKScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKScene.swift; sourceTree = "<group>"; };
+		90151323288A38DF00976B0F /* MoverTileImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = MoverTileImages.atlas; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				901512E02883363300976B0F /* AppDelegate.swift */,
+				90151323288A38DF00976B0F /* MoverTileImages.atlas */,
 				901513132883B54300976B0F /* LevelSystem */,
 				90151304288370BB00976B0F /* TileSystem */,
 				901513012883659500976B0F /* DiceSystem */,
@@ -118,7 +119,6 @@
 		90151302288365BE00976B0F /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				901512E22883363300976B0F /* GameScene.sks */,
 				901512E62883363300976B0F /* GameScene.swift */,
 				901512E82883363300976B0F /* GameViewController.swift */,
 			);
@@ -218,7 +218,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				901512EC2883363300976B0F /* Main.storyboard in Resources */,
-				901512E32883363300976B0F /* GameScene.sks in Resources */,
+				90151324288A38E000976B0F /* MoverTileImages.atlas in Resources */,
 				901512EE2883363600976B0F /* Assets.xcassets in Resources */,
 				901512F12883363600976B0F /* LaunchScreen.storyboard in Resources */,
 			);

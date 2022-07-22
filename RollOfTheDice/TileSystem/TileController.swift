@@ -15,6 +15,13 @@ extension TileController {
     
 //    static func getLock
     
+    static func getAnimationFrameNames(forTileType tileType: TileType) -> [String] {
+        var textureAssetNames = [String]()
+        for frameNumber in 1...tileType.numberOfFrames {
+            textureAssetNames.append(tileType.assetName + "-\(frameNumber)")
+        }
+        return textureAssetNames
+    }
     
     static func createRandomTileBoard(ofWidth width: Int, andHeight height: Int) -> TileBoard {
         // width == amount of tiles in each array

@@ -9,12 +9,12 @@ import Foundation
 
 let levelOneBoard: TileBoard = {
     let typeBoard: TileTypeBoard = [
+        [.levelFinish, .barrier, .standard, .standard, .standard],
+        [.standard, .gate(isLocked: true, targetValue: 3), .standard , .barrier, .decrementer],
+        [.barrier, .barrier, .mover(direction: .down), .barrier, .mover(direction: .up)],
+        [.barrier, .standard, .incrementer, .barrier, .mover(direction: .up)],
+        [.barrier, .mover(direction: .down), .barrier, .barrier, .standard],
         [.standard, .standard, .standard, .standard, .standard],
-        [.standard, .incrementer, .standard, .decrementer, .standard],
-        [.standard, .standard, .standard, .standard, .standard],
-        [.barrier, .barrier, .gate(isLocked: true, targetValue: 3), .barrier, .barrier],
-        [.standard, .standard, .standard, .standard, .standard],
-        [.standard, .standard, .levelFinish, .standard, .standard],
     ]
     return TileController.createTileBoard(fromTypeBoard: typeBoard)
 }()

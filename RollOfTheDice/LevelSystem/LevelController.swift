@@ -53,9 +53,9 @@ class LevelController {
     
     // MARK: - Exposed Properties
     
-    public let tileSize: Int = 200
+    public let tileSize: Int = 100
     public var diceSize: Int {
-        tileSize - (tileSize / 8)
+        tileSize - 20
     }
     
     public var currentLevel: Level
@@ -65,6 +65,9 @@ class LevelController {
     
     public var playerScreenPosition: CGPoint {
         return CGPoint(x: playerGridPosition.x * tileSize, y: -playerGridPosition.y * tileSize)
+    }
+    public var playerTile: TileEntity {
+        return gameBoard[playerGridPosition.y][playerGridPosition.x]
     }
     
     public var diceController = DiceController(player: DiceEntity())
@@ -124,8 +127,8 @@ extension LevelController {
     }
     
     public func handleMove(fromPreviousPosition previousPoint: Point) {
-        let newTile = gameBoard[playerGridPosition.y][playerGridPosition.x]
-        switch newTile.tileType {
+//        print("player is now at:", playerGridPosition)
+        switch playerTile.tileType {
         case .standard:
             break
         case .incrementer:
@@ -161,8 +164,13 @@ extension LevelController {
                 // Cant move to tile
                 playerGridPosition = previousPoint
             }
+        case .mover(direction: let direction):
+//            playerGridPosition.x += direction.dx
+//            playerGridPosition.y += direction.dy
+            delegate.playerDiceDidMove(toTileOfType: playerTile.tileType)
+            break
         }
-        delegate.playerDiceDidMove(toTileOfType: newTile.tileType)
+        delegate.playerDiceDidMove(toTileOfType: playerTile.tileType)
         
     }
 }

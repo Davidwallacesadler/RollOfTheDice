@@ -21,6 +21,8 @@ class GameScene: SKScene {
     private var tileNodes: [SKSpriteNode] = []
     private var currentLevelLabel: SKLabelNode!
     
+    let moverTileAtlas = SKTextureAtlas(named: "MoverTileImages")
+    
     // MARK: - View LifeCycle
     
     override func didMove(to view: SKView) {
@@ -154,6 +156,12 @@ extension GameScene: LevelControllerDelegate {
             } else {
                 playerNode.run(move)
             }
+        case .mover(direction: let direction):
+            // Need to re-direct the player based on direction
+//            playerNode.run(move)
+            let newPoint = Point(levelController.playerGridPosition.x + direction.dx, levelController.playerGridPosition.y + direction.dy)
+            levelController.movePlayer(toGridCoordinate: newPoint)
+            print("Player landed on mover and should be moved \(direction.dx) in the X direction, and \(direction.dy) in the Y direction.")
         }
     }
 }
@@ -212,13 +220,22 @@ extension GameScene {
         for tileRow in levelController.gameBoard {
             for tile in tileRow {
                 let tileNode = SKSpriteNode()
-                tileNode.texture = SKTexture(imageNamed: tile.tileType.assetName)
                 switch tile.tileType {
-                case .gate(isLocked: let islocked, targetValue: let targetValue):
+                case .gate(isLocked: _, targetValue: let targetValue):
+                    tileNode.texture = SKTexture(imageNamed: tile.tileType.assetName)
                     let valueLabel = SKLabelNode(text: "\(targetValue)")
                     valueLabel.verticalAlignmentMode = .center
                     tileNode.addChild(valueLabel)
+                case .mover(direction: let direction):
+                    
+                    let moverAnimationFrames: [SKTexture] = TileController.getAnimationFrameNames(forTileType: tile.tileType).map({ moverTileAtlas.textureNamed($0) })
+                    let moverAnimation = SKAction.repeatForever(SKAction.animate(with: moverAnimationFrames, timePerFrame: 0.1))
+                    
+                    tileNode.texture = moverAnimationFrames[0]
+                    tileNode.zRotation = CGFloat(direction.assetRotation)
+                    tileNode.run(moverAnimation)
                 default:
+                    tileNode.texture = SKTexture(imageNamed: tile.tileType.assetName)
                     break
                 }
                 tileNode.size = CGSize(width: tileSize, height: tileSize)
@@ -227,10 +244,10 @@ extension GameScene {
                 tileNode.name = "\(xPosition),\(yPosition)"
                 tileSprites.append(tileNode)
                 xPosition += 1
-                tileXOrigin += (tileSize + 1)
+                tileXOrigin += tileSize
             }
             
-            tileYOrigin -= (tileSize + 1)
+            tileYOrigin -= tileSize
             tileXOrigin = 0
             
             xPosition = 0

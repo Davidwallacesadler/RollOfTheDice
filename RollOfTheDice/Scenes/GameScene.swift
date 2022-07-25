@@ -21,7 +21,7 @@ class GameScene: SKScene {
     private var tileNodes: [SKSpriteNode] = []
     private var currentLevelLabel: SKLabelNode!
     
-    let moverTileAtlas = SKTextureAtlas(named: "MoverTileImages")
+    private let textureAtlas = SKTextureAtlas(named: "DiceFacesAndTiles")
     
     // MARK: - View LifeCycle
     
@@ -84,7 +84,7 @@ extension GameScene: LevelControllerDelegate {
         for gatePoint in levelController.gatePositions {
             let nameFromPoint = "\(gatePoint.x),\(gatePoint.y)"
             guard let tileFromName = findSprite(withName: nameFromPoint) else { return }
-            tileFromName.texture = SKTexture(imageNamed: levelController.gameBoard[gatePoint.y][gatePoint.x].tileType.assetName)
+            tileFromName.texture = textureAtlas.textureNamed(levelController.gameBoard[gatePoint.y][gatePoint.x].tileType.assetName)
 //            guard let firstLabel = tileFromName.children.first as? SKLabelNode else { return }
 //            switch levelController.gameBoard[gatePoint.y][gatePoint.x].tileType {
 //
@@ -106,7 +106,7 @@ extension GameScene: LevelControllerDelegate {
             playerNode.run(move)
         case .incrementer:
             let shrink = SKAction.scaleX(to: 0.1, duration: 0.25)
-            let update = SKAction.run { [unowned self] in self.playerNode.texture = SKTexture(imageNamed: self.levelController.diceController.diceAssetName) }
+            let update = SKAction.run { [unowned self] in self.playerNode.texture = self.textureAtlas.textureNamed(self.levelController.diceController.diceAssetName) }
             let expand = SKAction.scaleX(to: 1, duration: 0.25)
             let fadeOut = SKAction.fadeOut(withDuration: 0.25)
             let fadeIn = SKAction.fadeIn(withDuration: 0.25)
@@ -117,7 +117,7 @@ extension GameScene: LevelControllerDelegate {
             playerNode.run(SKAction.sequence([move, goOut, update, comeBack]))
         case .decrementer:
             let shrink = SKAction.scaleY(to: 0.1, duration: 0.25)
-            let update = SKAction.run { [unowned self] in self.playerNode.texture = SKTexture(imageNamed: self.levelController.diceController.diceAssetName) }
+            let update = SKAction.run { [unowned self] in self.playerNode.texture = self.textureAtlas.textureNamed(self.levelController.diceController.diceAssetName) }
             let expand = SKAction.scaleY(to: 1, duration: 0.25)
             let fadeOut = SKAction.fadeOut(withDuration: 0.25)
             let fadeIn = SKAction.fadeIn(withDuration: 0.25)
@@ -130,7 +130,7 @@ extension GameScene: LevelControllerDelegate {
             let rotateOut = SKAction.rotate(byAngle: 3, duration: 0.25)
             let rotateIn = SKAction.rotate(byAngle: -3, duration: 0.25)
             let shrink = SKAction.scaleY(to: 0.1, duration: 0.25)
-            let update = SKAction.run { [unowned self] in self.playerNode.texture = SKTexture(imageNamed: self.levelController.diceController.diceAssetName) }
+            let update = SKAction.run { [unowned self] in self.playerNode.texture = self.textureAtlas.textureNamed(self.levelController.diceController.diceAssetName) }
             let expand = SKAction.scaleY(to: 1, duration: 0.25)
             let fadeOut = SKAction.fadeOut(withDuration: 0.25)
             let fadeIn = SKAction.fadeIn(withDuration: 0.25)
@@ -140,18 +140,18 @@ extension GameScene: LevelControllerDelegate {
             comeBack.timingMode = .easeOut
             playerNode.run(SKAction.sequence([move, goOut, update, comeBack]))
         case .barrier:
-            let moveLeft = SKAction.move(by: CGVector(dx: 10, dy: 0), duration: 0.1)
-            let moveRight = SKAction.move(by: CGVector(dx: -20, dy: 0), duration: 0.1)
-            let reCenter = SKAction.move(by: CGVector(dx: 10, dy: 0), duration: 0.1)
+            let moveLeft = SKAction.move(by: CGVector(dx: 5, dy: 0), duration: 0.1)
+            let moveRight = SKAction.move(by: CGVector(dx: -10, dy: 0), duration: 0.1)
+            let reCenter = SKAction.move(by: CGVector(dx: 5, dy: 0), duration: 0.1)
             playerNode.run(SKAction.sequence([moveLeft, moveRight, reCenter]))
         case .levelFinish:
             let goToNext = SKAction.run { [unowned self] in self.levelController.goToNextLevel() }
             playerNode.run(SKAction.sequence([move, goToNext]))
         case .gate(isLocked: let isLocked, targetValue: _):
             if isLocked {
-                let moveLeft = SKAction.move(by: CGVector(dx: 10, dy: 0), duration: 0.1)
-                let moveRight = SKAction.move(by: CGVector(dx: -20, dy: 0), duration: 0.1)
-                let reCenter = SKAction.move(by: CGVector(dx: 10, dy: 0), duration: 0.1)
+                let moveLeft = SKAction.move(by: CGVector(dx: 5, dy: 0), duration: 0.1)
+                let moveRight = SKAction.move(by: CGVector(dx: -10, dy: 0), duration: 0.1)
+                let reCenter = SKAction.move(by: CGVector(dx: 5, dy: 0), duration: 0.1)
                 playerNode.run(SKAction.sequence([moveLeft, moveRight, reCenter]))
             } else {
                 playerNode.run(move)
@@ -162,6 +162,19 @@ extension GameScene: LevelControllerDelegate {
             let newPoint = Point(levelController.playerGridPosition.x + direction.dx, levelController.playerGridPosition.y + direction.dy)
             levelController.movePlayer(toGridCoordinate: newPoint)
             print("Player landed on mover and should be moved \(direction.dx) in the X direction, and \(direction.dy) in the Y direction.")
+        case .diceChanger(type: _):
+            let rotateOut = SKAction.rotate(byAngle: 3, duration: 0.25)
+            let rotateIn = SKAction.rotate(byAngle: -3, duration: 0.25)
+            let shrink = SKAction.scaleY(to: 0.1, duration: 0.25)
+            let update = SKAction.run { [unowned self] in self.playerNode.texture = self.textureAtlas.textureNamed(self.levelController.diceController.diceAssetName) }
+            let expand = SKAction.scaleY(to: 1, duration: 0.25)
+            let fadeOut = SKAction.fadeOut(withDuration: 0.25)
+            let fadeIn = SKAction.fadeIn(withDuration: 0.25)
+            let goOut = SKAction.group([shrink, fadeOut, rotateOut])
+            goOut.timingMode = .easeIn
+            let comeBack = SKAction.group([expand, fadeIn, rotateIn])
+            comeBack.timingMode = .easeOut
+            playerNode.run(SKAction.sequence([move, goOut, update, comeBack]))
         }
     }
 }
@@ -187,7 +200,7 @@ extension GameScene {
     
     func setupPlayerNode() {
         let player = SKSpriteNode()
-        player.texture = SKTexture(imageNamed: levelController.diceController.diceAssetName)
+        player.texture = textureAtlas.textureNamed(levelController.diceController.diceAssetName)
         player.position = levelController.playerScreenPosition
         player.size = CGSize(width: levelController.diceSize, height: levelController.diceSize)
         player.zPosition = ObjectDepth.foreground.zPosition
@@ -222,20 +235,20 @@ extension GameScene {
                 let tileNode = SKSpriteNode()
                 switch tile.tileType {
                 case .gate(isLocked: _, targetValue: let targetValue):
-                    tileNode.texture = SKTexture(imageNamed: tile.tileType.assetName)
+                    tileNode.texture = textureAtlas.textureNamed(tile.tileType.assetName)
                     let valueLabel = SKLabelNode(text: "\(targetValue)")
                     valueLabel.verticalAlignmentMode = .center
                     tileNode.addChild(valueLabel)
                 case .mover(direction: let direction):
                     
-                    let moverAnimationFrames: [SKTexture] = TileController.getAnimationFrameNames(forTileType: tile.tileType).map({ moverTileAtlas.textureNamed($0) })
+                    let moverAnimationFrames: [SKTexture] = TileController.getAnimationFrameNames(forTileType: tile.tileType).map({ textureAtlas.textureNamed($0) })
                     let moverAnimation = SKAction.repeatForever(SKAction.animate(with: moverAnimationFrames, timePerFrame: 0.1))
                     
                     tileNode.texture = moverAnimationFrames[0]
                     tileNode.zRotation = CGFloat(direction.assetRotation)
                     tileNode.run(moverAnimation)
                 default:
-                    tileNode.texture = SKTexture(imageNamed: tile.tileType.assetName)
+                    tileNode.texture = textureAtlas.textureNamed(tile.tileType.assetName)
                     break
                 }
                 tileNode.size = CGSize(width: tileSize, height: tileSize)

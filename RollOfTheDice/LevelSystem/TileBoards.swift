@@ -24,7 +24,7 @@ let levelTwoBoard: TileBoard = {
         [.standard, .standard, .standard, .standard, .standard],
         [.barrier, .barrier, .incrementer, .barrier, .standard],
         [.levelFinish, .barrier, .gate(isLocked: true, targetValue: 3), .barrier, .standard],
-        [.standard, .barrier, .standard, .barrier, .standard],
+        [.standard, .barrier, .standard, .mover(direction: .right), .standard],
         [.standard, .gate(isLocked: true, targetValue: 4), .incrementer, .barrier, .decrementer],
     ]
     return TileController.createTileBoard(fromTypeBoard: typeBoard)
@@ -32,10 +32,10 @@ let levelTwoBoard: TileBoard = {
 
 let levelThreeBoard: TileBoard = {
     let typeBoard: TileTypeBoard = [
-        [.barrier, .standard, .standard, .standard, .barrier],
+        [.standard, .barrier, .standard, .standard, .barrier],
         [.standard, .barrier, .standard, .barrier, .standard],
         [.standard, .standard, .barrier, .standard, .decrementer],
-        [.reRoller, .standard, .gate(isLocked: true, targetValue: 6), .standard, .standard],
+        [.diceChanger(type: .d10), .standard, .gate(isLocked: true, targetValue: 10), .standard, .standard],
         [.standard, .barrier, .barrier, .barrier, .standard],
         [.barrier, .standard, .levelFinish, .standard, .gate(isLocked: true, targetValue: 3)],
     ]

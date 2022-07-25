@@ -15,7 +15,8 @@ enum TileType: CustomStringConvertible, Equatable {
          barrier,
          levelFinish,
          gate(isLocked: Bool, targetValue: Int),
-         mover(direction: CardinalDirection)
+         mover(direction: CardinalDirection),
+         diceChanger(type: DiceType)
     
     var description: String {
         switch self {
@@ -35,9 +36,10 @@ enum TileType: CustomStringConvertible, Equatable {
             let baseDescription = "gate"
             let postFix = isLocked ? "-locked" : "-unlocked"
             return baseDescription + postFix
-        case .mover(direction: let direction):
-//            return direction.description + " mover"
+        case .mover(direction: _):
             return "mover"
+        case .diceChanger(type: let type):
+            return "dice-\(type.description)"
         }
     }
     

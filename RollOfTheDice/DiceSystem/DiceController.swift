@@ -25,11 +25,17 @@ class DiceController: RandomNumberApi {
         get {
             return playerDice.currentNumber
         }
+        set {
+            playerDice.currentNumber = newValue
+        }
     }
     
     public var diceType: DiceType {
         get {
             return playerDice.currentType
+        }
+        set {
+            playerDice.currentType = newValue
         }
     }
     

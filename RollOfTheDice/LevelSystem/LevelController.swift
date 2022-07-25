@@ -155,20 +155,25 @@ extension LevelController {
         case .barrier:
             // Move back to last point?
             playerGridPosition = previousPoint
-            break
+            delegate.playerDiceDidMove(toTileOfType: .barrier)
+            return
         case .levelFinish:
 //            goToNextLevel()
             break
-        case .gate(isLocked: let isLocked, targetValue: _):
+        case .gate(isLocked: let isLocked, targetValue: let targetValue):
             if isLocked {
                 // Cant move to tile
                 playerGridPosition = previousPoint
+                delegate.playerDiceDidMove(toTileOfType: .gate(isLocked: isLocked, targetValue: targetValue))
+                return
             }
-        case .mover(direction: let direction):
-//            playerGridPosition.x += direction.dx
-//            playerGridPosition.y += direction.dy
-            delegate.playerDiceDidMove(toTileOfType: playerTile.tileType)
+        case .mover(direction: let _):
             break
+        case .diceChanger(type: let type):
+            diceController.diceType = type
+            if diceController.diceValue > type.numberOfSides {
+                diceController.diceValue = type.numberOfSides
+            }
         }
         delegate.playerDiceDidMove(toTileOfType: playerTile.tileType)
         

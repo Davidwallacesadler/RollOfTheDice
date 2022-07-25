@@ -7,12 +7,23 @@
 
 import Foundation
 
-enum DiceType: Int, CaseIterable {
+enum DiceType: Int, CaseIterable, CustomStringConvertible {
     case d4 = 4,
          d6 = 6,
-         d8 = 8,
-         d10 = 10,
-         d20 = 20
+//         d8 = 8,
+         d10 = 10
+//         d20 = 20
+    
+    var description: String {
+        switch self {
+        case .d4:
+            return "d4"
+        case .d6:
+            return "d6"
+        case .d10:
+            return "d10"
+        }
+    }
      
     var numberOfSides: Int {
         return self.rawValue

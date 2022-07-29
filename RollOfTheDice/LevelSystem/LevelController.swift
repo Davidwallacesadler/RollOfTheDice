@@ -81,11 +81,12 @@ extension LevelController {
     
     public func evaluateGateConditions() {
         let currentDiceValue = diceController.diceValue
+        let currentDiceType = diceController.diceType
         for point in gatePositions {
             switch gameBoard[point.y][point.x].tileType {
-            case .gate(isLocked: _, targetValue: let targetValue):
-                let newState = currentDiceValue != targetValue
-                let newGateType: TileType = .gate(isLocked: newState, targetValue: targetValue)
+            case .gate(isLocked: _, targetValue: let targetValue, targetDiceType: let targetDiceType):
+                let newState = currentDiceValue != targetValue && targetDiceType != currentDiceType
+                let newGateType: TileType = .gate(isLocked: newState, targetValue: targetValue, targetDiceType: targetDiceType)
                 gameBoard[point.y][point.x].tileType = newGateType
             default:
                 break
@@ -160,11 +161,15 @@ extension LevelController {
         case .levelFinish:
 //            goToNextLevel()
             break
-        case .gate(isLocked: let isLocked, targetValue: let targetValue):
+        case .gate(isLocked: let isLocked,
+                   targetValue: let targetValue,
+                   targetDiceType: let targetDiceType):
             if isLocked {
                 // Cant move to tile
                 playerGridPosition = previousPoint
-                delegate.playerDiceDidMove(toTileOfType: .gate(isLocked: isLocked, targetValue: targetValue))
+                delegate.playerDiceDidMove(toTileOfType: .gate(isLocked: isLocked,
+                                                               targetValue: targetValue,
+                                                               targetDiceType: targetDiceType))
                 return
             }
         case .mover(direction: let _):

@@ -37,5 +37,27 @@ enum DiceType: Int, CaseIterable, CustomStringConvertible {
         return "dice_d\(self.rawValue)"
     }
     
+    var symbolName: String {
+        switch self {
+        case .d4:
+            return "triangle"
+        case .d6:
+            return "square"
+        case .d10:
+            return "diamond"
+        }
+    }
+    
+    var textSymbol: String {
+        switch self {
+        case .d4:
+            return "△"
+        case .d6:
+            return "□"
+        case .d10:
+            return "◇"
+        }
+    }
+    
     static let defaultDice: DiceType = .d6
 }

@@ -14,9 +14,10 @@ enum TileType: CustomStringConvertible, Equatable {
          reRoller,
          barrier,
          levelFinish,
-         gate(isLocked: Bool, targetValue: Int),
+         gate(isLocked: Bool, targetValue: Int, targetDiceType: DiceType?),
          mover(direction: CardinalDirection),
          diceChanger(type: DiceType)
+        // TODO:  flipper - flips the dice in a cardinal direction - like if you we fliping the dice one side in a direction
     
     var description: String {
         switch self {
@@ -32,7 +33,7 @@ enum TileType: CustomStringConvertible, Equatable {
             return "barrier"
         case .levelFinish:
             return "finish"
-        case .gate(isLocked: let isLocked, targetValue: _):
+        case .gate(isLocked: let isLocked, targetValue: _, targetDiceType: _):
             let baseDescription = "gate"
             let postFix = isLocked ? "-locked" : "-unlocked"
             return baseDescription + postFix
@@ -79,7 +80,7 @@ enum TileType: CustomStringConvertible, Equatable {
     }
     
     static let defaultTile: TileType = .standard
-    static let allCases: [TileType] = [.standard, .incrementer, .decrementer, .reRoller, .barrier, .levelFinish, .gate(isLocked: true, targetValue: 5)]
+    static let allCases: [TileType] = [.standard, .incrementer, .decrementer, .reRoller, .barrier, .levelFinish, .gate(isLocked: true, targetValue: 5, targetDiceType: nil)]
 }
 
 

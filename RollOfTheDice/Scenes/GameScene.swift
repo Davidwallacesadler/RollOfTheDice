@@ -147,7 +147,7 @@ extension GameScene: LevelControllerDelegate {
         case .levelFinish:
             let goToNext = SKAction.run { [unowned self] in self.levelController.goToNextLevel() }
             playerNode.run(SKAction.sequence([move, goToNext]))
-        case .gate(isLocked: let isLocked, targetValue: _):
+        case .gate(isLocked: let isLocked, targetValue: _, targetDiceType: _):
             if isLocked {
                 let moveLeft = SKAction.move(by: CGVector(dx: 5, dy: 0), duration: 0.1)
                 let moveRight = SKAction.move(by: CGVector(dx: -10, dy: 0), duration: 0.1)
@@ -234,16 +234,23 @@ extension GameScene {
             for tile in tileRow {
                 let tileNode = SKSpriteNode()
                 switch tile.tileType {
-                case .gate(isLocked: _, targetValue: let targetValue):
+                case .gate(isLocked: _, targetValue: let targetValue, targetDiceType: let targetDiceType):
                     tileNode.texture = textureAtlas.textureNamed(tile.tileType.assetName)
-                    let valueLabel = SKLabelNode(text: "\(targetValue)")
+                    let valueLabel = SKLabelNode()
+                    let labelText: String
+                    if let diceType = targetDiceType {
+                        labelText = "\(diceType.textSymbol)\(targetValue)"
+                        valueLabel.fontSize = 14.0
+                    } else {
+                        labelText = "\(targetValue)"
+                        valueLabel.fontSize = 17.0
+                    }
+                    valueLabel.text = labelText
                     valueLabel.verticalAlignmentMode = .center
                     tileNode.addChild(valueLabel)
                 case .mover(direction: let direction):
-                    
                     let moverAnimationFrames: [SKTexture] = TileController.getAnimationFrameNames(forTileType: tile.tileType).map({ textureAtlas.textureNamed($0) })
                     let moverAnimation = SKAction.repeatForever(SKAction.animate(with: moverAnimationFrames, timePerFrame: 0.1))
-                    
                     tileNode.texture = moverAnimationFrames[0]
                     tileNode.zRotation = CGFloat(direction.assetRotation)
                     tileNode.run(moverAnimation)

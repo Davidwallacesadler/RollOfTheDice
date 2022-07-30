@@ -65,4 +65,12 @@ enum CardinalDirection: String, CaseIterable, CustomStringConvertible {
             return .pi / 2
         }
     }
+    
+    static func isCardinalMove(dx: UInt, dy: UInt) -> Bool {
+        let isCardinal = self.allCases.contains { direction in
+            direction.dx == dx && direction.dy == dy
+        }
+        let isZero = dx == 0 && dy == 0
+        return isCardinal || isZero
+    }
 }

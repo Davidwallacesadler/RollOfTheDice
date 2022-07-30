@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum DiceType: Int, CaseIterable, CustomStringConvertible {
+enum DiceType: Int, CaseIterable, CustomStringConvertible, Equatable {
     case d4 = 4,
          d6 = 6,
 //         d8 = 8,

@@ -9,19 +9,18 @@ import Foundation
 
 let levelOneBoard: TileBoard = {
     let typeBoard: TileTypeBoard = [
-        [.levelFinish, .barrier, .standard, .standard, .standard],
-        [.standard, .gate(isLocked: true, targetValue: 3, targetDiceType: .d4), .standard , .barrier, .decrementer],
-        [.barrier, .barrier, .mover(direction: .down), .barrier, .mover(direction: .up)],
-        [.barrier, .standard, .incrementer, .barrier, .mover(direction: .up)],
-        [.barrier, .mover(direction: .down), .barrier, .barrier, .standard],
-        [.standard, .standard, .standard, .standard, .standard],
+        [.empty, .empty, .levelFinish, .empty, .empty],
+        [.empty, .empty, .gate(isLocked: true, targetValue: 2, targetDiceType: nil), .empty, .empty],
+        [.empty, .standard, .standard, .decrementer, .empty],
+        [.empty, .mover(direction: .down), .barrier , .mover(direction: .up), .empty],
+        [.empty, .incrementer, .standard, .standard, .empty],
     ]
     return TileController.createTileBoard(fromTypeBoard: typeBoard)
 }()
 
 let levelTwoBoard: TileBoard = {
     let typeBoard: TileTypeBoard = [
-        [.standard, .standard, .standard, .standard, .standard],
+        [.standard, .standard, .standard, .standard, .diceChanger(type: .d4)],
         [.barrier, .barrier, .incrementer, .barrier, .standard],
         [.levelFinish, .barrier, .gate(isLocked: true, targetValue: 3, targetDiceType: .d4), .barrier, .standard],
         [.standard, .barrier, .standard, .mover(direction: .right), .standard],

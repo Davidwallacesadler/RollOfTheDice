@@ -98,9 +98,8 @@ extension GameScene: LevelControllerDelegate {
     }
     
     func playerDiceDidMove(toTileOfType tileType: TileType) {
-        let move = SKAction.move(to: self.levelController.playerScreenPosition, duration: 0.25)
-        move.timingMode = .easeInEaseOut
-        
+        let move = SKAction.sequence([SKAction.move(to: self.levelController.playerScreenPosition, duration: 0.5), SKAction.playSoundFileNamed("knock.m4a", waitForCompletion: false)])
+        move.timingFunction = SKTTimingFunctionExponentialEaseInOut
         switch tileType {
         case .standard:
             playerNode.run(move)
@@ -175,6 +174,8 @@ extension GameScene: LevelControllerDelegate {
             let comeBack = SKAction.group([expand, fadeIn, rotateIn])
             comeBack.timingMode = .easeOut
             playerNode.run(SKAction.sequence([move, goOut, update, comeBack]))
+        case .empty:
+            break
         }
     }
 }
@@ -250,10 +251,13 @@ extension GameScene {
                     tileNode.addChild(valueLabel)
                 case .mover(direction: let direction):
                     let moverAnimationFrames: [SKTexture] = TileController.getAnimationFrameNames(forTileType: tile.tileType).map({ textureAtlas.textureNamed($0) })
-                    let moverAnimation = SKAction.repeatForever(SKAction.animate(with: moverAnimationFrames, timePerFrame: 0.1))
+                    let animation = SKAction.animate(with: moverAnimationFrames, timePerFrame: 0.1)
+                    let moverAnimation = SKAction.repeatForever(animation)
                     tileNode.texture = moverAnimationFrames[0]
                     tileNode.zRotation = CGFloat(direction.assetRotation)
                     tileNode.run(moverAnimation)
+                case .empty:
+                    break
                 default:
                     tileNode.texture = textureAtlas.textureNamed(tile.tileType.assetName)
                     break

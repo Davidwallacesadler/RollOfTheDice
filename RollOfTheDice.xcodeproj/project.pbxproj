@@ -30,6 +30,8 @@
 		9015131E2883C45000976B0F /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9015131D2883C45000976B0F /* Point.swift */; };
 		901513202883F32100976B0F /* LevelControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9015131F2883F32100976B0F /* LevelControllerDelegate.swift */; };
 		901513222884A4A200976B0F /* SKScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901513212884A4A200976B0F /* SKScene.swift */; };
+		901513262894871700976B0F /* SKTTimingFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901513252894871700976B0F /* SKTTimingFunctions.swift */; };
+		9015132A28949B8B00976B0F /* knock.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 9015132928949B8B00976B0F /* knock.m4a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +59,8 @@
 		9015131D2883C45000976B0F /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		9015131F2883F32100976B0F /* LevelControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelControllerDelegate.swift; sourceTree = "<group>"; };
 		901513212884A4A200976B0F /* SKScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKScene.swift; sourceTree = "<group>"; };
+		901513252894871700976B0F /* SKTTimingFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKTTimingFunctions.swift; sourceTree = "<group>"; };
+		9015132928949B8B00976B0F /* knock.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = knock.m4a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +93,7 @@
 		901512DF2883363300976B0F /* RollOfTheDice */ = {
 			isa = PBXGroup;
 			children = (
+				9015132928949B8B00976B0F /* knock.m4a */,
 				901512E02883363300976B0F /* AppDelegate.swift */,
 				901513132883B54300976B0F /* LevelSystem */,
 				90151304288370BB00976B0F /* TileSystem */,
@@ -131,6 +136,7 @@
 				9015131D2883C45000976B0F /* Point.swift */,
 				9015130D28837B8E00976B0F /* Typealias.swift */,
 				9015130F288395C800976B0F /* ObjectDepth.swift */,
+				901513252894871700976B0F /* SKTTimingFunctions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -217,6 +223,7 @@
 				901512EC2883363300976B0F /* Main.storyboard in Resources */,
 				901512EE2883363600976B0F /* Assets.xcassets in Resources */,
 				901512F12883363600976B0F /* LaunchScreen.storyboard in Resources */,
+				9015132A28949B8B00976B0F /* knock.m4a in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,6 +252,7 @@
 				901513152883B55F00976B0F /* LevelController.swift in Sources */,
 				901513172883B80400976B0F /* TileBoards.swift in Sources */,
 				90151308288379A400976B0F /* TileEntity.swift in Sources */,
+				901513262894871700976B0F /* SKTTimingFunctions.swift in Sources */,
 				9015130E28837B8E00976B0F /* Typealias.swift in Sources */,
 				901513002883621C00976B0F /* DiceApi.swift in Sources */,
 			);

@@ -16,7 +16,9 @@ enum TileType: CustomStringConvertible, Equatable {
          levelFinish,
          gate(isLocked: Bool, targetValue: Int, targetDiceType: DiceType?),
          mover(direction: CardinalDirection),
-         diceChanger(type: DiceType)
+         diceChanger(type: DiceType),
+         empty
+//         flipper(direction: CardinalDirection)
         // TODO:  flipper - flips the dice in a cardinal direction - like if you we fliping the dice one side in a direction
     
     var description: String {
@@ -41,6 +43,8 @@ enum TileType: CustomStringConvertible, Equatable {
             return "mover"
         case .diceChanger(type: let type):
             return "dice-\(type.description)"
+        case .empty:
+            return "empty"
         }
     }
     

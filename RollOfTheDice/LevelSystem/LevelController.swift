@@ -85,8 +85,17 @@ extension LevelController {
         for point in gatePositions {
             switch gameBoard[point.y][point.x].tileType {
             case .gate(isLocked: _, targetValue: let targetValue, targetDiceType: let targetDiceType):
-                let newState = currentDiceValue != targetValue && targetDiceType != currentDiceType
-                let newGateType: TileType = .gate(isLocked: newState, targetValue: targetValue, targetDiceType: targetDiceType)
+                // Is the gate still locked?
+                let gateIsLocked: Bool
+                let diceValueMatchesGateValue = currentDiceValue == targetValue
+                if let targetDiceType = targetDiceType {
+                    let diceTypeMatchesGateType = currentDiceType == targetDiceType
+                    gateIsLocked = !diceValueMatchesGateValue || !diceTypeMatchesGateType
+                } else {
+                    gateIsLocked = !diceValueMatchesGateValue
+                }
+                
+                let newGateType: TileType = .gate(isLocked: gateIsLocked, targetValue: targetValue, targetDiceType: targetDiceType)
                 gameBoard[point.y][point.x].tileType = newGateType
             default:
                 break
@@ -122,6 +131,14 @@ extension LevelController {
             print("Player tapped on a tile out of range to move")
             return
             
+        }
+        guard CardinalDirection.isCardinalMove(dx: dx, dy: dy) else {
+            print("Player tapped an adjacent diagonal tile")
+            return
+        }
+        guard gameBoard[newPoint.y][newPoint.x].tileType != .empty else {
+            print("Player tapped on empty tile")
+            return
         }
         playerGridPosition = newPoint
         handleMove(fromPreviousPosition: previousPoint)
@@ -179,6 +196,8 @@ extension LevelController {
             if diceController.diceValue > type.numberOfSides {
                 diceController.diceValue = type.numberOfSides
             }
+        case .empty:
+            break
         }
         delegate.playerDiceDidMove(toTileOfType: playerTile.tileType)
         
@@ -206,7 +225,7 @@ extension LevelController {
         var startPosition: Point {
             switch self {
             case .one:
-                return Point(2,0)
+                return Point(2,2)
             case .two:
                 return .origin
             case .three:
